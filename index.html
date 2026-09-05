@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Flora Bar — speakeasy, bistrô e floricultura nos Jardins, São Paulo." />
+    <meta name="description" content="Flora Bar — speakeasy e bistrô escondido atrás de uma vitrine de flores nos Jardins, São Paulo." />
     <title>Flora Bar — Jardins, São Paulo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,8 +13,18 @@
   <body>
     <main>
       <section class="hero" id="inicio">
-        <div class="hero-image parallax-layer" data-parallax="0.11"></div>
+        <div class="hero-carousel parallax-layer" data-parallax="0.11">
+          <div class="hero-slide is-active" style="background-image:url('assets/flora-hero.png')"></div>
+          <div class="hero-slide" style="background-image:url('assets/flora-hero-drink.jpg')"></div>
+          <div class="hero-slide" style="background-image:url('assets/flora-hero-facade.jpg')"></div>
+        </div>
+        <div class="hero-scrim"></div>
         <div class="grain"></div>
+        <div class="hero-dots" role="tablist" aria-label="Galeria do Flora Bar">
+          <button class="hero-dot is-active" role="tab" aria-selected="true" aria-label="O balcão"></button>
+          <button class="hero-dot" role="tab" aria-selected="false" aria-label="Drink da casa"></button>
+          <button class="hero-dot" role="tab" aria-selected="false" aria-label="Fachada"></button>
+        </div>
         <header class="header">
           <a class="brand" href="#inicio" aria-label="Flora Bar, início">FLORA<span>BAR</span></a>
           <nav aria-label="Navegação principal">
@@ -27,11 +37,11 @@
         <div class="hero-copy">
           <p class="eyebrow">Jardins · São Paulo</p>
           <h1>Onde a noite<br />floresce.</h1>
-          <p class="intro">Por trás de uma floricultura, um refúgio de sabores, coquetelaria e encontros que ficam na memória.</p>
+          <p class="intro">Por trás de uma vitrine de flores, um refúgio de sabores, coquetelaria e encontros que ficam na memória.</p>
           <a class="button light" href="https://r.odionisio.com/flora-bar" target="_blank" rel="noreferrer">Reserve sua mesa <span>↗</span></a>
         </div>
         <div class="hero-foot">
-          <span>Speakeasy · Bistrô · Floricultura</span>
+          <span>Speakeasy · Bistrô · Petiscos</span>
           <a href="#experiencia" aria-label="Conheça o Flora Bar">Desça para descobrir <i>↓</i></a>
         </div>
       </section>
@@ -42,7 +52,7 @@
           <p class="overline">A porta é só o começo</p>
           <h2>Uma casa escondida<br />para ser <em>encontrada.</em></h2>
           <div class="manifesto-text">
-            <p>O Flora é uma pausa no ritmo dos Jardins. Atravessar a floricultura é entrar em outra hora: luz baixa, couro capitonê, flores que mudam com a estação e uma mesa sempre à espera.</p>
+            <p>O Flora é uma pausa no ritmo dos Jardins. Atravessar a vitrine de flores é entrar em outra hora: luz baixa, couro capitonê, flores que mudam com a estação e uma mesa sempre à espera.</p>
             <p>A cozinha contemporânea e o balcão trabalham lado a lado — para que cada visita tenha o seu próprio tempo.</p>
           </div>
         </div>
@@ -115,6 +125,32 @@
         };
         window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; } }, { passive: true });
         updateParallax();
+      }
+
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.hero-dot');
+      if (slides.length > 1) {
+        let current = 0;
+        let timer;
+        const goTo = (index) => {
+          slides[current].classList.remove('is-active');
+          dots[current].classList.remove('is-active');
+          dots[current].setAttribute('aria-selected', 'false');
+          current = (index + slides.length) % slides.length;
+          slides[current].classList.add('is-active');
+          dots[current].classList.add('is-active');
+          dots[current].setAttribute('aria-selected', 'true');
+        };
+        const start = () => {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          timer = setInterval(() => goTo(current + 1), 6000);
+        };
+        dots.forEach((dot, i) => dot.addEventListener('click', () => {
+          clearInterval(timer);
+          goTo(i);
+          start();
+        }));
+        start();
       }
     </script>
   </body>

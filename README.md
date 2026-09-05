@@ -1,6 +1,6 @@
 # Flora Bar — Site
 
-Landing page do **Flora Bar**, speakeasy/bistrô/floricultura nos Jardins, São Paulo. Site estático (HTML + CSS puro, sem build), em português, com efeito parallax leve e visual editorial (fontes Italiana + DM Mono + Manrope).
+Landing page do **Flora Bar**, speakeasy/bistrô escondido atrás de uma vitrine de flores nos Jardins, São Paulo. Site estático (HTML + CSS puro, sem build), em português, com efeito parallax leve e visual editorial (fontes Italiana + DM Mono + Manrope).
 
 Repositório de deploy: [github.com/camilo-hikage/florabar](https://github.com/camilo-hikage/florabar)
 
